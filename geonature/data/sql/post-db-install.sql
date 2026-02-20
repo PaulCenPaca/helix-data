@@ -38,24 +38,22 @@ WHERE (id_role = 4 AND identifiant = 'agent')
 \echo '-------------------------------------------------------------------------------'
 \echo 'Removing unnecessary sample organisms'
 
-DELETE FROM utilisateurs.bib_organismes
-WHERE (id_organisme = 1 AND nom_organisme = 'ma structure test');
+--DELETE FROM utilisateurs.bib_organismes WHERE (id_organisme = 1 AND nom_organisme = 'ma structure test');
 
 \echo '-------------------------------------------------------------------------------'
 \echo 'Change on users'
 UPDATE utilisateurs.t_roles SET
     prenom_role = 'Administrateur',
     nom_role = 'GÉNÉRAL',
-    remarques='Mise à jour installation.',
-    pass = NULL,
-    pass_plus = :'passAdmin'
+    remarques='Mise à jour installation.' 
+--    ,pass = NULL, pass_plus = :'passAdmin'    
 WHERE id_role = 3 AND identifiant = 'admin';
 UPDATE utilisateurs.t_roles SET
     id_role = 4,
     identifiant = 'partner-test',
     prenom_role = 'Partenaire',
     nom_role = 'TEST',
-    email = 'adminsys+partner@cbn-alpin.fr',
+    email = 'paul.honore@cen-paca.org',
     desc_role = 'Compte partenaire.',
     remarques = 'Compte partenaire de test.',
     pass = NULL,
@@ -87,7 +85,7 @@ INSERT INTO utilisateurs.t_roles (
     'Groupe des observateurs sans accès à GeoNature.'
 ),
 (
-    'Partenaires',
+    'Benevoles_RGPD',
     TRUE,
     'cceb3beb-1891-42e9-b01e-ef7a59ad461a',
     'Tous les utilisateurs externes au CBNA. Accès en lecture et écriture uniquement à leurs données dans tous les modules.',
@@ -135,7 +133,7 @@ INSERT INTO utilisateurs.cor_role_app_profil (
     (SELECT id_application FROM utilisateurs.t_applications WHERE code_application = 'GN'),
     (SELECT id_profil FROM utilisateurs.t_profils WHERE nom_profil = 'Lecteur')
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     (SELECT id_application FROM utilisateurs.t_applications WHERE code_application = 'GN'),
     (SELECT id_profil FROM utilisateurs.t_profils WHERE nom_profil = 'Lecteur')
 ), (
@@ -166,7 +164,6 @@ AS $function$
     END;
 $function$
 ;
-
 
 \echo '-------------------------------------------------------------------------------'
 \echo 'Adding permissions'
@@ -537,91 +534,91 @@ INSERT INTO gn_permissions.t_permissions (
     gn_permissions.get_id_object('ALL'),
     NULL
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('R'), -- Lire (R)
     gn_commons.get_id_module_bycode('METADATA'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('E'), -- Exporter (E)
     gn_commons.get_id_module_bycode('METADATA'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('R'), -- Lire (R)
     gn_commons.get_id_module_bycode('SYNTHESE'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('E'), -- Exporter (E)
     gn_commons.get_id_module_bycode('SYNTHESE'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('C'), -- Créer (C)
     gn_commons.get_id_module_bycode('OCCTAX'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('R'), -- Lire (R)
     gn_commons.get_id_module_bycode('OCCTAX'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('U'), -- Mettre à jour (U)
     gn_commons.get_id_module_bycode('OCCTAX'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('E'), -- Exporter (E)
     gn_commons.get_id_module_bycode('OCCTAX'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('D'), -- Supprimer (D)
     gn_commons.get_id_module_bycode('OCCTAX'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('C'), -- Créer (C)
     gn_commons.get_id_module_bycode('OCCHAB'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('R'), -- Lire (R)
     gn_commons.get_id_module_bycode('OCCHAB'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('U'), -- Mettre à jour (U)
     gn_commons.get_id_module_bycode('OCCHAB'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('E'), -- Exporter (E)
     gn_commons.get_id_module_bycode('OCCHAB'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('D'), -- Supprimer (D)
     gn_commons.get_id_module_bycode('OCCHAB'),
     gn_permissions.get_id_object('ALL'),
     1
 ), (
-    utilisateurs.get_id_group_by_name('Partenaires'),
+    utilisateurs.get_id_group_by_name('Benevoles_RGPD'),
     gn_permissions.get_id_action_by_code('C'), -- Créer (C)
     gn_commons.get_id_module_bycode('VALIDATION'),
     gn_permissions.get_id_object('ALL'),
@@ -754,7 +751,6 @@ INSERT INTO gn_permissions.t_permissions (
     NULL
 )
 ON CONFLICT DO NOTHING ;
-
 
 -- \echo '-------------------------------------------------------------------------------'
 -- \echo 'Use this to insert a new permission if needed:'
