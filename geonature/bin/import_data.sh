@@ -133,7 +133,7 @@ function main() {
     executeUpgradeScript "organism" "delete"
     executeUpgradeScript "source" "delete"
 
-    reloadCorAreaSynthese
+#    reloadCorAreaSynthese
     finalizeUserImport
 
     #+----------------------------------------------------------------------------------------------------------+
