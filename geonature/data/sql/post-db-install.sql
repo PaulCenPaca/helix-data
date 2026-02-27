@@ -1,5 +1,16 @@
 BEGIN;
 
+TRUNCATE TABLE pr_occtax.t_releves_occtax CASCADE;
+ALTER SEQUENCE pr_occtax.t_releves_occtax_id_releve_occtax_seq RESTART WITH 1;
+ALTER SEQUENCE pr_occtax.t_occurrences_occtax_id_occurrence_occtax_seq RESTART WITH 1;
+ALTER SEQUENCE pr_occtax.cor_counting_occtax_id_counting_occtax_seq RESTART WITH 1;
+--delete from gn_permissions.t_permissions where created_on>'2025-10-10 18:00:00';
+TRUNCATE TABLE gn_synthese.synthese CASCADE;
+ALTER SEQUENCE gn_synthese.synthese_id_synthese_seq RESTART WITH 1;
+TRUNCATE TABLE gn_commons.t_validations CASCADE;
+ALTER SEQUENCE gn_commons.t_validations_id_validation_seq RESTART WITH 1;
+
+
 -- \echo '-------------------------------------------------------------------------------'
 -- \echo 'Finalize integration of GN database'
 
@@ -752,29 +763,29 @@ BEGIN;
 -- )
 -- ON CONFLICT DO NOTHING ;
 
--- -- \echo '-------------------------------------------------------------------------------'
--- -- \echo 'Use this to insert a new permission if needed:'
+-- \echo '-------------------------------------------------------------------------------'
+-- \echo 'Use this to insert a new permission if needed:'
 
--- -- SELECT
--- --      CONCAT(
--- --          e'(\n',
--- --          e'\tutilisateurs.get_id_role_by_uuid(''', r.uuid_role,	'''), -- ', r.nom_role, e'\n',
--- --          e'\tgn_permissions.get_id_action_by_code(''', a.code_action, '''), -- ', a.description_action, e'\n',
--- --          e'\tgn_commons.get_id_module_bycode(''', m.module_code, '''),', e'\n',
--- --          e'\tgn_permissions.get_id_object(''', o.code_object, '''),', e'\n',
--- --          e'\t', COALESCE(p.scope_value::VARCHAR, 'NULL'), e'\n',
--- --          e'),\n'
--- --      )
--- -- FROM gn_permissions.t_permissions AS p
--- --      JOIN gn_permissions.bib_actions AS a
--- --          ON p.id_action = a.id_action
--- --      JOIN gn_permissions.t_objects AS o
--- --          ON p.id_object = o.id_object
--- --      JOIN gn_commons.t_modules AS m
--- --          ON p.id_module = m.id_module
--- --      JOIN utilisateurs.t_roles AS r
--- --          ON p.id_role = r.id_role
--- -- ORDER BY p.id_role, p.id_module, p.id_action ;
+-- SELECT
+--      CONCAT(
+--          e'(\n',
+--          e'\tutilisateurs.get_id_role_by_uuid(''', r.uuid_role,	'''), -- ', r.nom_role, e'\n',
+--          e'\tgn_permissions.get_id_action_by_code(''', a.code_action, '''), -- ', a.description_action, e'\n',
+--          e'\tgn_commons.get_id_module_bycode(''', m.module_code, '''),', e'\n',
+--          e'\tgn_permissions.get_id_object(''', o.code_object, '''),', e'\n',
+--          e'\t', COALESCE(p.scope_value::VARCHAR, 'NULL'), e'\n',
+--          e'),\n'
+--      )
+-- FROM gn_permissions.t_permissions AS p
+--      JOIN gn_permissions.bib_actions AS a
+--          ON p.id_action = a.id_action
+--      JOIN gn_permissions.t_objects AS o
+--          ON p.id_object = o.id_object
+--      JOIN gn_commons.t_modules AS m
+--          ON p.id_module = m.id_module
+--      JOIN utilisateurs.t_roles AS r
+--          ON p.id_role = r.id_role
+-- ORDER BY p.id_role, p.id_module, p.id_action ;
 
 -- \echo '-------------------------------------------------------------------------------'
 -- \echo 'Add study perimeter as a type and its data for use with the Atlas'
